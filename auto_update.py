@@ -35,7 +35,7 @@ class latest_build:
     def __init__(self,repo_name):
         self.repo_name = repo_name
     def artifactory_call(self):
-        promotion_status = "Released, PROD Ready, Stage Ready,QA Ready, DT-Ready"
+        promotion_status = "DT_Ready"
         for i in promotion_status.split(','):
             latest_build_call = artifactory_aql_call(self.repo_name, i)
             latest_build_value = latest_build_call.artifactory_version_call()
