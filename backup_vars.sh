@@ -1,0 +1,11 @@
+export platform_version_plugin=
+export platform_asset_plugin=2
+export platform_webroot_plugin=3
+export platform_scripting_plugin=4
+export platform_eventlog_plugin=5
+export platform_systemstate_plugin=6
+export platform_sysevents_plugin=7
+export platform_performance_plugin=8
+export platform_patching_plugin=9
+export platform_filetransfer_plugin=10
+export platform_agent_core=11
