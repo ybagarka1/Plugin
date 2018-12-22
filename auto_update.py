@@ -1,4 +1,6 @@
 #!/cygdrive/c/Users/yash.bagarka/AppData/Local/Programs/Python/Python36/python
+## Author: Yash Bagarka ##
+## version: v1 ##
 config_file ={"config": {"agentcoreversion": "dev_platform-agent-core","performanceversion": "dev_platform-performance-plugin"}}
 
 import os
@@ -28,14 +30,21 @@ class artifactory_aql_call:
     self.release_env = release_env
   def artifactory_version_call(self):
     released_builds = aql.aql("builds.find", {"name":{"$match": "dev_{}".format(self.repo_name)},"promotion.status": {"$eq":"{}".format(self.release_env)}},".sort",({"$desc":["number"]}))
-    latest_released_build_info = released_builds[0]["build.number"]
-    return latest_released_build_info
+    all_builds_no = []
+    for i in released_builds:
+        all_builds_no.append(int(i["build.number"]))
+    max_build_no = max(all_builds_no) 
+    print("Downloading artifacts")
+    path = ArtifactoryPath("{}/artifactory/dt-{}/{}".format(artifactory_url,repo_name,max_build_no), auth=('{}'.format(artifactory_username),'{}'.format(artifactory_password)))
+    print(path)
+    return max_build_no 
 
 class latest_build:
     def __init__(self,repo_name):
         self.repo_name = repo_name
     def artifactory_call(self):
-        promotion_status = "DT_Ready"
+        promotion_status = 'Released, PROD Ready, Stage Ready, QA Ready, DT_Ready'
+        #, PROD Ready, Stage Ready, DT_Ready"
         for i in promotion_status.split(','):
             latest_build_call = artifactory_aql_call(self.repo_name, i)
             latest_build_value = latest_build_call.artifactory_version_call()
@@ -57,7 +66,7 @@ for i in plugins['plugins']:
         ## get request to artifactory to get the version
         artifact_call = latest_build(repo_name)
         version = artifact_call.artifactory_call()
-        print("The build number for repo "+i["repo_name"]+" is not passed...the lastest released value is "+version)
+        print("The build number for repo "+i["repo_name"]+" is not passed...the lastest released value is "+str(version))
 '''
         f.write("export " + i + "=" + str(version) +"\n")
     else:
