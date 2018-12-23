@@ -9,6 +9,7 @@ import json
 import yaml
 import sys
 from artifactory import ArtifactoryPath
+from requests.auth import HTTPBasicAuth
 
 ## required variables
 #artifactory_url = 'http://artifact.corp.continuum.net:8081'
@@ -21,7 +22,9 @@ artifactory_username = 'repluser'
 artifactory_password = os.environ['artifactory_password']
 aql = ArtifactoryPath("{}/artifactory/".format(artifactory_url), auth=('{}'.format(artifactory_username),'{}'.format(artifactory_password)))
 f = open("manifest_source_file", 'w')
-header = { 'username': 'repluser', 'password': 'AP49A5SMDpZuQb7e9g7Tn5c45fbUfJkZMzmUSM', 'Content-Type' : 'application/json' }
+
+global_manifest = {}
+global_manifest['packages'] = []
 
 
 class artifactory_aql_call:
@@ -34,22 +37,23 @@ class artifactory_aql_call:
     for i in released_builds:
         all_builds_no.append(int(i["build.number"]))
     max_build_no = max(all_builds_no) 
-    print("Downloading artifacts")
-    path = ArtifactoryPath("{}/artifactory/dt-{}/{}".format(artifactory_url,repo_name,max_build_no), auth=('{}'.format(artifactory_username),'{}'.format(artifactory_password)))
-    print(path)
-    return max_build_no 
+    build_info = requests.get("{}/artifactory/api/build/dev_{}/{}".format(artifactory_url,repo_name,max_build_no), auth=HTTPBasicAuth(artifactory_username,artifactory_password))
+    build_info_json = json.loads(build_info.text)
+    for i in build_info_json["buildInfo"]["modules"][0]["artifacts"]:
+        if str(32) in i["name"]:
+            version_value = i["name"].rsplit('_',1)[1].rsplit('.zip',1)[0]
+    return version_value  
 
 class latest_build:
     def __init__(self,repo_name):
         self.repo_name = repo_name
     def artifactory_call(self):
         promotion_status = 'Released, PROD Ready, Stage Ready, QA Ready, DT_Ready'
-        #, PROD Ready, Stage Ready, DT_Ready"
         for i in promotion_status.split(','):
             latest_build_call = artifactory_aql_call(self.repo_name, i)
             latest_build_value = latest_build_call.artifactory_version_call()
             if latest_build_value is not None:
-                break;
+                break
         return latest_build_value
 
 plugins_info = open('plugins_info.yml')  
@@ -67,6 +71,12 @@ for i in plugins['plugins']:
         artifact_call = latest_build(repo_name)
         version = artifact_call.artifactory_call()
         print("The build number for repo "+i["repo_name"]+" is not passed...the lastest released value is "+str(version))
+        print("Creating global manifest file")
+        global_manifest['packages'].append({ "name": "{}".format(repo_name), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(repo_name, version,version)})
+
+with open('globalmanifest.json', 'w') as outfile:
+    json.dump(global_manifest, outfile)
+
 '''
         f.write("export " + i + "=" + str(version) +"\n")
     else:

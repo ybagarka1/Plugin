@@ -27,5 +27,5 @@ build_info = requests.get("http://artifact.corp.continuum.net:8081/artifactory/a
 build_info_json = json.loads(build_info.text)
 for i in build_info_json["buildInfo"]["modules"][0]["artifacts"]:
     if str(32) in i["name"]:
-        version_value = i["name"].rsplit('_',1)[1].rsplit('.zip',1)[0]
+        version_value = i["name"].rsplit('_',1)[1].rsplit('.',1)[0]
         print(version_value)
