@@ -10,6 +10,7 @@ import yaml
 import sys
 from artifactory import ArtifactoryPath
 from requests.auth import HTTPBasicAuth
+import re
 
 ## required variables
 #artifactory_url = 'http://artifact.corp.continuum.net:8081'
@@ -26,6 +27,31 @@ f = open("manifest_source_file", 'w')
 global_manifest = {}
 global_manifest['packages'] = []
 
+class windows_binary_version:
+    def __init__(self, repo_name,max_build_no):
+        self.repo_name = repo_name
+        self.max_build_no = max_build_no
+    def windows_binary_version_artifactory_call(self):
+        build_info = requests.get("{}/artifactory/api/build/dev_{}/{}".format(artifactory_url,self.repo_name,self.max_build_no), auth=HTTPBasicAuth(artifactory_username,artifactory_password))
+        build_info_json = json.loads(build_info.text)
+        try:
+            if build_info_json["buildInfo"]["modules"][0]["artifacts"]:
+                try:
+                    for i in build_info_json["buildInfo"]["modules"][0]["artifacts"]:
+                        z = re.search('_windows32_', i["name"])
+                        if z: 
+                            version_value = i["name"].rsplit('_',1)[1].rsplit('.zip',1)[0]
+                            return version_value
+                        elif z is None:
+                            return self.max_build_no
+                except (KeyError):
+                    print("Key Error has occurred")
+                    return self.max_build_no
+            else:
+                return self.max_build_no
+        except KeyError:
+            return self.max_build_no
+
 
 class artifactory_aql_call:
   def __init__(self,repo_name,release_env):
@@ -37,18 +63,20 @@ class artifactory_aql_call:
     for i in released_builds:
         all_builds_no.append(int(i["build.number"]))
     max_build_no = max(all_builds_no) 
+    return max_build_no
+'''
     build_info = requests.get("{}/artifactory/api/build/dev_{}/{}".format(artifactory_url,repo_name,max_build_no), auth=HTTPBasicAuth(artifactory_username,artifactory_password))
     build_info_json = json.loads(build_info.text)
     for i in build_info_json["buildInfo"]["modules"][0]["artifacts"]:
         if str(32) in i["name"]:
             version_value = i["name"].rsplit('_',1)[1].rsplit('.zip',1)[0]
-    return version_value  
-
+'''
 class latest_build:
     def __init__(self,repo_name):
         self.repo_name = repo_name
     def artifactory_call(self):
-        promotion_status = 'Released, PROD Ready, Stage Ready, QA Ready, DT_Ready'
+        promotion_status = 'Released'
+        #PROD Ready, Stage Ready, QA Ready, DT_Ready'
         for i in promotion_status.split(','):
             latest_build_call = artifactory_aql_call(self.repo_name, i)
             latest_build_value = latest_build_call.artifactory_version_call()
@@ -64,14 +92,18 @@ for i in plugins['plugins']:
     value = i["name"]
     try:
         os.environ[value]
-        print("The build number for repo "+i["repo_name"]+" is "+os.environ[value])
+        version_call = windows_binary_version(i["repo_name"],os.environ[value])
+        version = version_call.windows_binary_version_artifactory_call() 
+        print("repo_name="+i["repo_name"]+" version="+version)
+        #print("The build number for repo "+i["repo_name"]+" is "+os.environ[value]+" and the version value is="+version)
     except KeyError:
         repo_name = i["repo_name"]
         ## get request to artifactory to get the version
         artifact_call = latest_build(repo_name)
-        version = artifact_call.artifactory_call()
+        max_build_no = artifact_call.artifactory_call()
+        version_call = windows_binary_version(repo_name,max_build_no)
+        version = version_call.windows_binary_version_artifactory_call()
         print("The build number for repo "+i["repo_name"]+" is not passed...the lastest released value is "+str(version))
-        print("Creating global manifest file")
         global_manifest['packages'].append({ "name": "{}".format(repo_name), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(repo_name, version,version)})
 
 with open('globalmanifest.json', 'w') as outfile:
