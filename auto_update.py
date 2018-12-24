@@ -15,7 +15,7 @@ from requests.auth import HTTPBasicAuth
 #artifactory_url = 'http://artifact.corp.continuum.net:8081'
 artifactory_url = os.environ['artifactory_url']
 #repo_name = ['dt-dev_its-portal-net','dt_dev_yash']
-repo_name = os.environ['repo_name']
+#repo_name = os.environ['repo_name']
 # artifactory user name
 artifactory_username = 'repluser'
 # artifactoy password
