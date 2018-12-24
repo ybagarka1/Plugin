@@ -38,7 +38,7 @@ class windows_binary_version:
                 try:
                     for i in build_info_json["buildInfo"]["modules"][0]["artifacts"]:
                         z = re.search('_windows32_', i["name"])
-                        if z:
+                        while z is not None: 
                             version_value = i["name"].rsplit('_',1)[1].rsplit('.zip',1)[0]
                             return version_value
                             break
@@ -90,12 +90,9 @@ for i in plugins['plugins']:
     try:
         os.environ[value]
         version_call = windows_binary_version(i["repo_name"],os.environ[value])
-        try:
-            version = version_call.windows_binary_version_artifactory_call() 
-            print("repo_name="+i["repo_name"]+" version="+version)
-        except TypeError:
-            version = os.environ[value]
-            print("repo_name="+i["repo_name"]+" version="+version)
+        version = version_call.windows_binary_version_artifactory_call() 
+        print("repo_name="+i["repo_name"]+" version="+version)
+        #print("The build number for repo "+i["repo_name"]+" is "+os.environ[value]+" and the version value is="+version)
         global_manifest['packages'].append({ "name": "{}".format(i["repo_name"]), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(i["repo_name"], version,version)})
     except KeyError:
         repo_name = i["repo_name"]
