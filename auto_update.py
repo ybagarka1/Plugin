@@ -116,6 +116,7 @@ for i in plugins['plugins']:
             version = values["version_value"]
             binary_name = values["binary_name"]
             print("==================================================================")
+            print("Passed build values are")
             print("plugin_name: "+i["name"]+"\n")
             print("version: "+str(version)+"\n")
             print("binary_name: "+binary_name)
@@ -136,7 +137,7 @@ for i in plugins['plugins']:
         version = values["version_value"]
         binary_name = values["binary_name"]
         print("==================================================================")
-        print("The build values are not passed..getting latest Released values\n")
+        print("The build is not passed..getting latest Released Build No.\n")
         print("plugin_name: "+i["name"]+"\n")
         print("version: "+str(version)+"\n")
         print("binary_name: "+binary_name)
