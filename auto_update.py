@@ -12,6 +12,7 @@ import sys
 from artifactory import ArtifactoryPath
 from requests.auth import HTTPBasicAuth
 import re
+import pprint
 
 ## required variables
 
@@ -112,8 +113,14 @@ for i in plugins['plugins']:
 
 with open('globalmanifest.json', 'w') as outfile:
     json.dump(global_manifest, outfile)
-
 '''
+with open('globalmanifest.json', 'r') as f:
+    data = f.read()
+    global_manifest_json_data = json.loads(data)
+
+
+pprint.pprint(global_manifest_json_data)
+
         f.write("export " + i + "=" + str(version) +"\n")
     else:
         f.write("export " + i + "=" + os.environ[i] + "\n")
