@@ -43,3 +43,7 @@ plugins:
   - name: platform_agent_core
     type: SRP
     repo_name: platform-agent-core
+
+  - name: platform_installation_manager
+    type: SRP
+    repo_name: platform-installation-manager

@@ -7,4 +7,5 @@ then
 	echo "exiting"
 	exit 1
 fi
+exit 0 
 cat globalmanifest.json | python -m json.tool

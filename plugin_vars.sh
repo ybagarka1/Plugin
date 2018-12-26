@@ -21,3 +21,4 @@ export platform_asset_plugin=353
 #export platform_patching_plugin=87
 #export platform_filetransfer_plugin=79
 #export platform_agent_core=19
+export platform_installation_manager=96

@@ -117,7 +117,7 @@ for i in plugins['plugins']:
             binary_name = values["binary_name"]
             print("==================================================================")
             print("plugin_name: "+i["name"]+"\n")
-            print("version: "+version+"\n")
+            print("version: "+str(version)+"\n")
             print("binary_name: "+binary_name)
             print("==================================================================")
         except TypeError:
@@ -138,7 +138,7 @@ for i in plugins['plugins']:
         print("==================================================================")
         print("The build values are not passed..getting latest Released values\n")
         print("plugin_name: "+i["name"]+"\n")
-        print("version: "+version+"\n")
+        print("version: "+str(version)+"\n")
         print("binary_name: "+binary_name)
         print("==================================================================")
         if version != "NA":
