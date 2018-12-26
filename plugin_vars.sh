@@ -10,14 +10,14 @@ unset platform_patching_plugin
 unset platform_filetransfer_plugin
 unset platform_agent_core
 
-export platform_version_plugin=NA
-export platform_asset_plugin=100
-export platform_webroot_plugin=20
-export platform_scripting_plugin=45
-export platform_eventlog_plugin=46
-export platform_systemstate_plugin=NA
-export platform_sysevents_plugin=24
-export platform_performance_plugin=78
-export platform_patching_plugin=87
-export platform_filetransfer_plugin=79
-export platform_agent_core=19
+#export platform_version_plugin=54
+export platform_asset_plugin=353
+#export platform_webroot_plugin=20
+#export platform_scripting_plugin=45
+#export platform_eventlog_plugin=46
+#export platform_systemstate_plugin=67
+#export platform_sysevents_plugin=24
+#export platform_performance_plugin=78
+#export platform_patching_plugin=87
+#export platform_filetransfer_plugin=79
+#export platform_agent_core=19

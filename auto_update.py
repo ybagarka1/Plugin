@@ -39,17 +39,36 @@ class windows_binary_version:
             if build_info_json["buildInfo"]["modules"][0]["artifacts"]:
                 try:
                     for i in build_info_json["buildInfo"]["modules"][0]["artifacts"]:
-                        z = re.search('_windows32_', i["name"])
+                        z = re.search('32', i["name"])
                         if z:
+                            values = dict();
+                            binary_name = i["name"]
                             version_value = i["name"].rsplit('_',1)[1].rsplit('.zip',1)[0]
-                            return version_value
-                            break
+                            if '.' in version_value:
+                                values['version_value'] = version_value
+                                values['binary_name'] = binary_name
+                                return (values)
+                                break
+                            elif '.' not in version_value:
+                                values['version_value'] = self.max_build_no
+                                values['binary_name'] = binary_name
+                                return values;
+                                break
                 except (KeyError):
-                    return self.max_build_no
+                    print("Cant find 32 bit binary in the build selected for deployment..Ignoring the plugin")
+                    version_value = "NA"
+                    binary_name = "NA"
+                    return (version_value+binary_name)
             else:
-                return self.max_build_no
+                print("the build json doesn't have the artifacts entry in it")
+                version_value = "NA"
+                binary_name = "NA"
+                return  
         except KeyError:
-            return self.max_build_no
+            print("there are some issues in the buildinfosjson returning this plugin value as NA")
+            version_value = "NA"
+            binary_name = "NA"
+            return (version_value, binary_name)
 
 
 class artifactory_aql_call:
@@ -93,23 +112,37 @@ for i in plugins['plugins']:
         os.environ[value]
         version_call = windows_binary_version(i["repo_name"],os.environ[value])
         try:
-            version = version_call.windows_binary_version_artifactory_call() 
-            print("repo_name="+i["repo_name"]+" version="+version)
+            values = version_call.windows_binary_version_artifactory_call()
+            version = values["version_value"]
+            binary_name = values["binary_name"]
+            print("==================================================================")
+            print("plugin_name: "+i["name"]+"\n")
+            print("version: "+version+"\n")
+            print("binary_name: "+binary_name)
+            print("==================================================================")
         except TypeError:
-            version = os.environ[value]
-            print("repo_name="+i["repo_name"]+" version="+version)
+            version = "NA"
+            binary_name = "NA"
+            #print("repo_name="+i["repo_name"]+" version="+version)
         if version != "NA":
-            global_manifest['packages'].append({ "name": "{}".format(i["repo_name"]), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(i["repo_name"], version,version)})
+            global_manifest['packages'].append({ "name": "{}".format(i["repo_name"]), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(i["repo_name"], version,binary_name)})
     except KeyError:
         repo_name = i["repo_name"]
         ## get request to artifactory to get the version
         artifact_call = latest_build(repo_name)
         max_build_no = artifact_call.artifactory_call()
         version_call = windows_binary_version(repo_name,max_build_no)
-        version = version_call.windows_binary_version_artifactory_call()
-        print("The build number for repo "+i["repo_name"]+" is not passed...the lastest released value is "+str(version))
+        values = version_call.windows_binary_version_artifactory_call()
+        version = values["version_value"]
+        binary_name = values["binary_name"]
+        print("==================================================================")
+        print("The build values are not passed..getting latest Released values\n")
+        print("plugin_name: "+i["name"]+"\n")
+        print("version: "+version+"\n")
+        print("binary_name: "+binary_name)
+        print("==================================================================")
         if version != "NA":
-            global_manifest['packages'].append({ "name": "{}".format(repo_name), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(repo_name, version,version)})
+            global_manifest['packages'].append({ "name": "{}".format(repo_name), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(repo_name, version,binary_name)})
 
 with open('globalmanifest.json', 'w') as outfile:
     json.dump(global_manifest, outfile)
