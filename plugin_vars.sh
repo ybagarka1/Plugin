@@ -10,7 +10,7 @@ unset platform_patching_plugin
 unset platform_filetransfer_plugin
 unset platform_agent_core
 
-export platform_version_plugin=1
+export platform_version_plugin=NA
 export platform_asset_plugin=100
 export platform_webroot_plugin=20
 export platform_scripting_plugin=45

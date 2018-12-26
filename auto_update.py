@@ -97,7 +97,7 @@ for i in plugins['plugins']:
         except TypeError:
             version = os.environ[value]
             print("repo_name="+i["repo_name"]+" version="+version)
-        if version is not "NA":
+        if version != "NA":
             global_manifest['packages'].append({ "name": "{}".format(i["repo_name"]), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(i["repo_name"], version,version)})
     except KeyError:
         repo_name = i["repo_name"]
@@ -107,7 +107,7 @@ for i in plugins['plugins']:
         version_call = windows_binary_version(repo_name,max_build_no)
         version = version_call.windows_binary_version_artifactory_call()
         print("The build number for repo "+i["repo_name"]+" is not passed...the lastest released value is "+str(version))
-        if version is not "NA":
+        if version != "NA":
             global_manifest['packages'].append({ "name": "{}".format(repo_name), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(repo_name, version,version)})
 
 with open('globalmanifest.json', 'w') as outfile:
