@@ -41,7 +41,7 @@ class windows_binary_version:
                     for i in build_info_json["buildInfo"]["modules"][0]["artifacts"]:
                         z = re.search('32', i["name"])
                         if z:
-                            values = dict();
+                            values = dict()
                             binary_name = i["name"]
                             version_value = i["name"].rsplit('_',1)[1].rsplit('.zip',1)[0]
                             if '.' in version_value:
@@ -52,7 +52,7 @@ class windows_binary_version:
                             elif '.' not in version_value:
                                 values['version_value'] = self.max_build_no
                                 values['binary_name'] = binary_name
-                                return values;
+                                return values
                                 break
                 except (KeyError):
                     print("Cant find 32 bit binary in the build selected for deployment..Ignoring the plugin")

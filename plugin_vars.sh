@@ -22,3 +22,4 @@ export platform_asset_plugin=353
 #export platform_filetransfer_plugin=79
 #export platform_agent_core=19
 export platform_installation_manager=96
+export sentinel_one_third_party=46

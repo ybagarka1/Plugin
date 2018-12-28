@@ -47,3 +47,8 @@ plugins:
   - name: platform_installation_manager
     type: SRP
     repo_name: platform-installation-manager
+
+  - name: sentinel_one_third_party
+    type: TBD
+    repo_name: sentinel-one-third-party
+
