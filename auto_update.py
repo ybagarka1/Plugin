@@ -154,7 +154,7 @@ for i in plugins['plugins']:
         print("binary_name: "+binary_name)
         print("==================================================================")
         if version != "NA":
-            global_manifest['packages'].append({ "name": "{}".format(repo_name), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(repo_name, version,binary_name)})
+            global_manifest['packages'].append({ "name": "{}".format(repo_name), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{{{ downloadurl }}}}/Windows/{}/{}/{}".format(repo_name, version,binary_name)})
 print(global_manifest)
 with open('globalmanifest.json', 'w') as outfile:
     json.dump(global_manifest, outfile, indent=4)
