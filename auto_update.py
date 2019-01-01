@@ -16,6 +16,7 @@ import pprint
 
 ## required variables
 
+
 #artifactory_url = 'http://artifact.corp.continuum.net:8081'
 artifactory_url = os.environ['artifactory_url']
 # artifactory user name
@@ -24,8 +25,18 @@ artifactory_username = 'repluser'
 artifactory_password = os.environ['artifactory_password']
 aql = ArtifactoryPath("{}/artifactory/".format(artifactory_url), auth=('{}'.format(artifactory_username),'{}'.format(artifactory_password)))
 
+with open('globalmsiversion.txt', 'r') as myfile:
+    global_msi_version = myfile.read().replace('\n', '')
+
 f = open("manifest_source_file", 'w')
-global_manifest = {}
+global_manifest = { 
+"version": "{}".format(global_msi_version),
+"supportedOS": [
+{ "type": "Windows", "version": "6.1", "name": "XP" }
+,
+{ "type": "Windows", "version": "6.4", "name": "Vista" }
+],
+"supportedArch": [ "i386" ],}
 global_manifest['packages'] = []
 
 class windows_binary_version:

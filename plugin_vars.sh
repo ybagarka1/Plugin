@@ -10,6 +10,9 @@ unset platform_patching_plugin
 unset platform_filetransfer_plugin
 unset platform_agent_core
 
+export artifactory_password=AP49A5SMDpZuQb7e9g7Tn5c45fbUfJkZMzmUSM
+export artifactory_url=http://artifact.corp.continuum.net:8081
+
 #export platform_version_plugin=54
 export platform_asset_plugin=353
 #export platform_webroot_plugin=20
