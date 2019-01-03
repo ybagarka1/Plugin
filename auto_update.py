@@ -137,7 +137,7 @@ for i in plugins['plugins']:
             binary_name = "NA"
             #print("repo_name="+i["repo_name"]+" version="+version)
         if version != "NA":
-            global_manifest['packages'].append({ "name": "{}".format(i["repo_name"]), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{ downloadurl }}/Windows/{}/{}/{}".format(i["repo_name"], version,binary_name)})
+            global_manifest['packages'].append({ "name": "{}".format(i["repo_name"]), "type": "{}".format(i["type"]), "version": "{}".format(version), "sourceURL": "{{{{ downloadurl }}}}/Windows/{}/{}/{}".format(i["repo_name"], version,binary_name)})
     except KeyError:
         repo_name = i["repo_name"]
         ## get request to artifactory to get the version
