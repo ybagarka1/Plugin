@@ -1,0 +1,80 @@
+{
+    "Name": "platform-version-plugin",
+    "Type": "SRP",
+    "Version": "1.0.54",
+    "MinimumAgentVersion": "1.0.382",
+    "UnsupportedOS": [{"Type": "Linux","Version": "6.1","Name": "Ubuntu"},{"Type": "Linux","Version": "","Name": "Kali"}],
+    "Backup": [
+        "/plugin/version",
+        "/config"
+    ],
+    "SupportedArchitecture": [
+        "X-84","i386"
+    ],
+    "Operations": [
+        {
+            "Type": "File",
+            "Name": "version/platform-version-plugin.exe",
+            "InstallationPath": "/plugin",
+            "FileHash": "d1c4b9a4d5f311cd05c6d4d2162afb74",
+            "Action": "Add",
+            "RestoreOnFailure": true
+        },
+        {
+            "Type": "File",
+            "Name": "version/version_agent_plugin_cfg.json",
+            "InstallationPath": "/plugin",
+            "FileHash": "4a6b18eefbae4c5105cc8be91f35e392",
+            "Action": "Add",
+            "RestoreOnFailure": true
+        },
+        {
+            "Type": "Configuration",
+            "Name": "version/platform-core-registration-cfg.json",
+            "InstallationPath": "/config/platform_agent_core_cfg.json",
+            "FileHash": "416428166a4da385b5380d07f16c20be",
+            "Action": "Add",
+            "RestoreOnFailure": true
+        },
+        {
+            "Type": "Configuration",
+            "Name": "version/platform-core-schedule-cfg.json",
+            "InstallationPath": "/config/platform_agent_schedule_cfg.json",
+            "FileHash": "bb6d2313b4f2a6dc7dfeab1ea51def9f",
+            "Action": "Add",
+            "RestoreOnFailure": true
+        }
+    ],
+    "UninstallOperations": [
+        {
+            "Type": "File",
+            "Name": "version/platform-version-plugin.exe",
+            "InstallationPath": "/plugin",
+            "Action": "remove",
+            "RestoreOnFailure": true
+        },
+        {
+            "Type": "File",
+            "Name": "version/version_agent_plugin_cfg.json",
+            "InstallationPath": "/plugin",
+            "Action": "Remove",
+            "RestoreOnFailure": true
+        },
+        {
+            "Type": "Configuration",
+            "Name": "version/platform-core-registration-cfg.json",
+            "InstallationPath": "/config/platform_agent_core_cfg.json",
+            "FileHash": "416428166a4da385b5380d07f16c20be",
+            "Action": "Remove",
+            "RestoreOnFailure": true
+        },
+        {
+            "Type": "Configuration",
+            "Name": "version/platform-core-schedule-cfg.json",
+            "InstallationPath": "/config/platform_agent_schedule_cfg.json",
+            "FileHash": "bb6d2313b4f2a6dc7dfeab1ea51def9f",
+            "Action": "Remove",
+            "RestoreOnFailure": true
+        }
+    ]
+}

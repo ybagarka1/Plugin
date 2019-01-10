@@ -1,0 +1,10 @@
+{
+    "PluginsLocation": {
+        "version": {
+            "Active": true,
+            "Path": "../plugin/version/platform-version-plugin",
+            "Type": "External",
+            "PluginExecutionTimeoutInSeconds": 10800
+        }
+    }
+}
