@@ -5,6 +5,7 @@ block_cipher = None
 
 a = Analysis(['auto_update.py'],
              pathex=['D:\\Plugin'],
+             pathex=['/home/jenkins/.jenkins/workspace/dev_platform-agent-package'],
              binaries=[],
              datas=[],
              hiddenimports=[],

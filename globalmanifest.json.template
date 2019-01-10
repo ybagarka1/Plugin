@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "version": "1.0.384.12",
     "supportedOS": [
         {
@@ -94,5 +95,102 @@
             "version": "1.0.46",
             "sourceURL": "{{ downloadurl }}/Windows/sentinel-one-third-party/1.0.46/sentinel_one_third_party_windows32_1.0.46.zip"
         }
+=======
+    "packages": [
+        {
+            "version": "1.0.54", 
+            "type": "SRP", 
+            "name": "platform-version-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-version-plugin/1.0.54/platform_version_plugin_windows32_1.0.54.zip"
+        }, 
+        {
+            "version": "353", 
+            "type": "SRP", 
+            "name": "platform-asset-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-asset-plugin/353/continuum_asset_plugin_windows32.zip"
+        }, 
+        {
+            "version": "1.0.124", 
+            "type": "SRP", 
+            "name": "platform-webroot-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-webroot-plugin/1.0.124/platform_webroot_plugin_windows32_1.0.124.zip"
+        }, 
+        {
+            "version": "1.0.195", 
+            "type": "SRP", 
+            "name": "platform-scripting-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-scripting-plugin/1.0.195/platform_scripting_plugin_windows32_1.0.195.zip"
+        }, 
+        {
+            "version": "1.0.268", 
+            "type": "LRP", 
+            "name": "platform-event-log-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-event-log-plugin/1.0.268/platform_eventlog_plugin_windows32_1.0.268.zip"
+        }, 
+        {
+            "version": "1.0.58", 
+            "type": "SRP", 
+            "name": "platform-systemstate-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-systemstate-plugin/1.0.58/platform_systemstate_plugin_windows32_1.0.58.zip"
+        }, 
+        {
+            "version": "1.0.102", 
+            "type": "LRP", 
+            "name": "platform-sysevents-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-sysevents-plugin/1.0.102/platform_sysevents_plugin_windows32_1.0.102.zip"
+        }, 
+        {
+            "version": "1.0.419", 
+            "type": "SRP", 
+            "name": "platform-performance-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-performance-plugin/1.0.419/platform_performance_plugin_windows32_1.0.419.zip"
+        }, 
+        {
+            "version": "1.0.121", 
+            "type": "LRP", 
+            "name": "platform-patching-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-patching-plugin/1.0.121/platform_patching_plugin_windows32_1.0.121.zip"
+        }, 
+        {
+            "version": "1.0.79", 
+            "type": "SRP", 
+            "name": "platform-file-transfer-plugin", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-file-transfer-plugin/1.0.79/platform_filetransfer_plugin_windows32_1.0.79.zip"
+        }, 
+        {
+            "version": "1.0.1431", 
+            "type": "SRP", 
+            "name": "platform-agent-core", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-agent-core/1.0.1431/platform_agent_core_windows32_1.0.1431.zip"
+        }, 
+        {
+            "version": "1.0.96", 
+            "type": "SRP", 
+            "name": "platform-installation-manager", 
+            "sourceURL": "{{ downloadurl }}/Windows/platform-installation-manager/1.0.96/platform_installation_manager_windows32_1.0.96.zip"
+        }, 
+        {
+            "version": "1.0.46", 
+            "type": "TBD", 
+            "name": "sentinel-one-third-party", 
+            "sourceURL": "{{ downloadurl }}/Windows/sentinel-one-third-party/1.0.46/sentinel_one_third_party_windows32_1.0.46.zip"
+        }
+    ], 
+    "version": "1.0.384.12", 
+    "supportedOS": [
+        {
+            "version": "6.1", 
+            "type": "Windows", 
+            "name": "XP"
+        }, 
+        {
+            "version": "6.4", 
+            "type": "Windows", 
+            "name": "Vista"
+        }
+    ], 
+    "supportedArch": [
+        "i386"
+>>>>>>> 8d92eb41703cb28f9927a634d71d9a9ca286693a
     ]
 }
