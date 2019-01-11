@@ -8,7 +8,7 @@ from requests.auth import HTTPBasicAuth
 import sys
 from flask import Flask, render_template
 
-downloadurl = 'http://update.dtitsupport247.net/InstallJunoAgent/Plugin'
+downloadurl = 'http://update.qaitsupport247.local/InstallJunoAgent/Plugin'
 
 #artifactory_url = 'http://artifact.corp.continuum.net:8081'
 artifactory_url = os.environ['artifactory_url']
