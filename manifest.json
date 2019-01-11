@@ -1,0 +1,27 @@
+{
+    "Name": "platform-agent-core",
+    "Type": "Core",
+    "Description": "Base package to used for plugin management and data center communication from endpoint",
+    "Version": "1.0.1431",
+    "MinimumAgentVersion": "1.0.382",
+    "UnsupportedOS": [{"Type": "Linux","Version": "6.1","Name": "Ubuntu"},{"Type": "Linux","Version": "","Name": "Kali"}],
+    "Backup": [
+        "/agentcore",
+        "/config"
+    ],
+    "SupportedArchitecture": [
+        "X-84","i386"
+    ],
+    "Operations": [
+        {
+            "Type": "File",
+            "Name": "agentcore/platform-agent-core.exe",
+            "InstallationPath": "",
+            "Hash": "526bcdbb313dc5c4842862b60a8693a2",
+            "Action": "Add",
+            "RestoreOnFailure": true
+        }
+    ],
+     "UninstallOperations": [
+     ]
+}
