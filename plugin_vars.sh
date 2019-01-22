@@ -12,6 +12,8 @@ unset platform_agent_core
 
 export artifactory_password=AP49A5SMDpZuQb7e9g7Tn5c45fbUfJkZMzmUSM
 export artifactory_url=http://artifact.corp.continuum.net:8081
+export downloadurl=http://update.qaitsupport247.net/InstallJunoAgents/Plugin
+export workspace=/cygdrive/D/Plugin
 
 #export platform_version_plugin=54
 export platform_asset_plugin=353
